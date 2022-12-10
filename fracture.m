@@ -30,6 +30,9 @@ edgeRegs(~ismember(vertcat(edgeRegs.Area), AreaList(1:2))) = [];
 edgeImg = zeros(size(img, 1), size(img,2));
 edgeImg(vertcat(edgeRegs.PixelIdxList)) = 1;
 
+figure(1)
+imshow(edgeImg)
+
 % Do hough transform on edge image to find angles at which bone pieces are
 % found
 % Use max value of Hough transform vs angle to find angles at which lines
@@ -43,7 +46,7 @@ HoughThresh = (max(maxHough) - min(maxHough))/2 + min(maxHough);
 [~, HoughPeaks] = findpeaks(maxHough,'MINPEAKHEIGHT',HoughThresh, 'MinPeakDistance', MinHoughPeakDistance);
 
 % Plot Hough detection results
-figure(1)
+figure(2)
 plot(T, maxHough);
 hold on
 plot([min(T) max(T)], [HoughThresh, HoughThresh], 'r');
@@ -85,7 +88,7 @@ else
 end
 
 % Draw ellipse around break location
-figure(2)
+figure(3)
 imshow(img)
 hold on
 colormap('gray')
